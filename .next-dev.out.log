@@ -1,0 +1,39 @@
+
+> cmebe-site@0.1.0 dev
+> next dev --port 3000
+
+   ▲ Next.js 15.5.19
+   - Local:        http://localhost:3000
+   - Network:      http://26.80.12.86:3000
+
+ ✓ Starting...
+ ✓ Ready in 11.2s
+ ○ Compiling / ...
+ ✓ Compiled / in 11s (791 modules)
+ GET / 200 in 5375ms
+ GET / 200 in 674ms
+ GET / 200 in 1084ms
+ GET / 200 in 699ms
+ GET / 200 in 1473ms
+ GET / 200 in 832ms
+ GET / 200 in 811ms
+ ✓ Compiled in 1468ms (791 modules)
+ GET / 200 in 595ms
+ GET / 200 in 841ms
+ GET / 200 in 1162ms
+ GET / 200 in 1579ms
+ ○ Compiling /favicon.ico ...
+ ✓ Compiled /favicon.ico in 1139ms (519 modules)
+ GET /favicon.ico 200 in 1580ms
+ ✓ Compiled in 971ms (808 modules)
+ GET / 200 in 900ms
+ GET / 200 in 1062ms
+ GET / 200 in 2073ms
+ GET /favicon.ico 200 in 37ms
+ GET / 200 in 628ms
+ GET / 200 in 771ms
+ ✓ Compiled in 1812ms (791 modules)
+ GET / 200 in 1111ms
+ GET / 200 in 208ms
+ GET / 200 in 950ms
+ GET / 200 in 858ms
