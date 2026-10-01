@@ -1,102 +1,90 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowDown, BadgeCheck, Globe2, MessageCircle, ShieldCheck } from "lucide-react";
+import { CalendarDays } from "lucide-react";
 
 import { institution } from "@/data/institution";
-import { buildWhatsappUrl, joinMessage } from "@/lib/whatsapp";
+import { presidentContent, presidentPhotos } from "@/data/president";
 
-const heroStats = [
-  { label: "Fundado em", value: institution.foundedAt },
-  { label: "Presidente", value: institution.president },
-  { label: "Slogan", value: institution.slogan },
+const institutionalFacts = [
+  { label: "Fundação", value: institution.foundedAt },
+  { label: "Agenda oficial", value: "6 encontros em 2026" },
+  { label: "Sede", value: "Sepetiba · Rio de Janeiro" },
 ];
 
 export function Hero() {
   return (
-    <section id="inicio" className="hero-surface relative overflow-hidden text-[#102b5c]">
-      <div className="hero-grid absolute inset-0 opacity-80" />
-      <div className="hero-blue-field absolute inset-y-0 right-0 hidden w-[46%] lg:block" />
-      <div className="gold-rule absolute inset-x-0 bottom-0 h-px" />
+    <section id="inicio" className="band-navy relative overflow-hidden">
+      <div className="cmebe-rule-gold absolute inset-x-0 top-0" />
+      <div className="cmebe-rule-gold absolute inset-x-0 bottom-0" />
+      <div className="absolute -left-28 top-24 h-72 w-72 rounded-full border border-gold-300/10" />
+      <div className="absolute -left-16 top-36 h-48 w-48 rounded-full border border-gold-300/10" />
 
-      <div className="relative mx-auto grid min-h-[calc(100svh-77px)] max-w-7xl items-center gap-8 px-4 py-10 sm:px-6 lg:grid-cols-[1.05fr_0.85fr] lg:gap-10 lg:px-8 lg:py-16">
-        <div className="max-w-3xl">
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#d9e5f5] bg-white/80 px-4 py-2 text-sm font-bold text-[#163c78] shadow-[0_12px_30px_rgba(22,60,120,0.08)] backdrop-blur">
-            <ShieldCheck className="h-4 w-4 text-[#c99a2e]" />
-            Conselho ministerial cristão
-          </div>
-          <h1 className="max-w-4xl text-4xl font-black leading-[0.98] text-[#102b5c] sm:text-6xl lg:text-[5.2rem]">
-            Bem-vindo ao <span className="gold-text">CMEBE</span>
+      <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-4 py-14 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:px-8 lg:py-20">
+        <div>
+          <p className="cmebe-eyebrow on-dark">Conselho ministerial · Brasil e exterior</p>
+
+          <h1 className="mt-5 max-w-3xl font-display text-[2.15rem] font-semibold leading-[1.06] tracking-tight text-white sm:text-5xl lg:text-[3.35rem]">
+            Conselho de Ministros Evangélicos do Brasil e do Exterior
           </h1>
-          <p className="mt-6 max-w-2xl text-xl font-semibold leading-8 text-[#163c78] sm:text-2xl">
-            {institution.fullName}
-          </p>
-          <p className="mt-5 max-w-2xl text-base leading-8 text-slate-600 sm:text-lg">
-            Unindo ministros, fortalecendo vocações e servindo ao Reino de Deus no
-            Brasil e no exterior.
+
+          <p className="mt-6 max-w-2xl text-base leading-8 text-brand-100 sm:text-lg">
+            Unidade, formação e representatividade para ministros e lideranças
+            cristãs que servem ao Reino com fé, responsabilidade e propósito.
           </p>
 
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Link
-              href={buildWhatsappUrl(joinMessage)}
-              target="_blank"
-              className="blue-button inline-flex h-14 items-center justify-center gap-2 rounded-full px-7 text-base font-extrabold transition hover:-translate-y-0.5"
-            >
-              <MessageCircle className="h-5 w-5" />
-              Filie-se já
-            </Link>
-            <Link
-              href="#beneficios"
-              className="inline-flex h-14 items-center justify-center gap-2 rounded-full border border-[#d9e5f5] bg-white px-7 text-base font-bold text-[#102b5c] shadow-[0_16px_34px_rgba(22,60,120,0.09)] transition hover:-translate-y-0.5 hover:border-[#c99a2e] hover:text-[#a87518]"
-            >
-              Conheça os benefícios
-              <ArrowDown className="h-5 w-5" />
+          <p className="mt-5 inline-flex items-center gap-2 border-l-2 border-gold-500 pl-4 font-display text-xl font-medium italic text-gold-300">
+            “{institution.slogan}”
+          </p>
+
+          <div className="mt-8">
+            <Link href="/agenda" className="btn btn-gold">
+              <CalendarDays className="h-4 w-4" aria-hidden />
+              Ver agenda oficial
             </Link>
           </div>
 
-          <div className="mt-10 hidden gap-3 border-y border-[#d9e5f5] py-5 sm:grid sm:grid-cols-3">
-            {heroStats.map((stat) => (
-              <div
-                key={stat.label}
-                className="border-l border-[#c99a2e] bg-white/70 p-4 backdrop-blur"
-              >
-                <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#a87518]">
-                  {stat.label}
-                </p>
-                <p className="mt-2 text-sm font-bold text-[#102b5c]">{stat.value}</p>
+          <dl className="mt-10 grid max-w-2xl grid-cols-1 gap-px overflow-hidden rounded-lg border border-white/15 bg-white/10 sm:grid-cols-3">
+            {institutionalFacts.map((item) => (
+              <div key={item.label} className="band-navy-deep px-4 py-4">
+                <dt className="text-[0.64rem] font-semibold uppercase tracking-[0.14em] text-gold-300">
+                  {item.label}
+                </dt>
+                <dd className="mt-1.5 text-sm font-semibold leading-5 text-white">{item.value}</dd>
               </div>
             ))}
-          </div>
+          </dl>
         </div>
 
-        <div className="relative mx-auto flex w-full max-w-[480px] justify-center lg:justify-end">
-          <div className="relative aspect-square w-[min(62vw,280px)] sm:w-[min(50vw,340px)] lg:w-[min(32vw,420px)]">
-            <div className="absolute inset-0 rounded-full border border-[#f2dc99]/70 bg-white/40 shadow-[0_30px_90px_rgba(16,43,92,0.18)] backdrop-blur" />
-            <div className="absolute inset-5 rounded-full border border-[#d9e5f5]" />
-            <div className="absolute inset-10 rounded-full border border-[#c99a2e]/35" />
-            <Image
-              src={institution.logo}
-              alt="Logo do CMEBE - Conselho de Ministros Evangélicos do Brasil e do Exterior"
-              width={640}
-              height={640}
-              className="absolute inset-[13%] h-[74%] w-[74%] rounded-full object-cover shadow-[0_24px_70px_rgba(16,43,92,0.32)] ring-1 ring-[#f2dc99]"
-              priority
-            />
-            <div className="brand-card absolute -bottom-2 left-0 right-0 mx-auto hidden max-w-sm gap-2 rounded-lg p-4 backdrop-blur sm:grid">
-              <div className="flex items-start gap-3">
-                <BadgeCheck className="mt-1 h-5 w-5 shrink-0 text-[#c99a2e]" />
-                <p className="text-sm font-medium leading-6 text-slate-700">
-                  Credenciamento, formação e suporte para ministros evangélicos.
+        <article className="relative overflow-hidden rounded-2xl border border-white/15 bg-brand-950/75 shadow-[0_28px_80px_rgba(3,14,31,0.48)] ring-1 ring-gold-500/20">
+          <div className="grid sm:grid-cols-[0.82fr_1.18fr] lg:grid-cols-1 xl:grid-cols-[0.82fr_1.18fr]">
+            <div className="relative min-h-80 overflow-hidden sm:min-h-full lg:min-h-80 xl:min-h-full">
+              <Image
+                src={presidentPhotos.main.src}
+                alt={presidentPhotos.main.alt}
+                fill
+                priority
+                sizes="(max-width: 640px) 100vw, (max-width: 1280px) 44vw, 260px"
+                className="object-cover object-top"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-brand-950/50 via-transparent to-transparent" />
+            </div>
+
+            <div className="relative flex flex-col justify-center p-6 sm:p-7 lg:p-8 xl:p-7">
+              <p className="cmebe-eyebrow on-dark">{presidentContent.title}</p>
+              <blockquote className="mt-5 font-display text-lg italic leading-8 text-white">
+                “{presidentContent.message}”
+              </blockquote>
+              <div className="mt-6 border-l-2 border-gold-500 pl-4">
+                <p className="font-display text-lg font-semibold text-white">
+                  {institution.president}
                 </p>
-              </div>
-              <div className="flex items-start gap-3">
-                <Globe2 className="mt-1 h-5 w-5 shrink-0 text-[#c99a2e]" />
-                <p className="text-sm font-medium leading-6 text-slate-700">
-                  Atuação voltada ao Brasil e ao exterior, com visão de unidade.
+                <p className="mt-1 text-xs font-semibold uppercase tracking-[0.12em] text-gold-300">
+                  {presidentContent.signatureRole}
                 </p>
               </div>
             </div>
           </div>
-        </div>
+        </article>
       </div>
     </section>
   );

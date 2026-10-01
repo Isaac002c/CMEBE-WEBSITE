@@ -1,4 +1,4 @@
-import { Flag, Target, Telescope } from "lucide-react";
+import { Target, Telescope } from "lucide-react";
 
 import { SectionHeading } from "@/components/SectionHeading";
 import { institution } from "@/data/institution";
@@ -28,61 +28,47 @@ const statements = [
 
 export function HistorySection() {
   return (
-    <section className="bg-white px-4 py-24 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-7xl">
-        <div className="grid gap-10 lg:grid-cols-[1fr_1fr]">
-          <div>
-            <SectionHeading
-              eyebrow="História e missão"
-              title="Uma origem recente com propósito claro."
-              description={`O CMEBE foi fundado em ${institution.foundedAt} com o objetivo de reunir ministros evangélicos do Brasil e do exterior em torno de uma missão comum: fortalecer a unidade, promover capacitação, apoiar ministérios e contribuir para o crescimento espiritual e numérico da Igreja.`}
-            />
+    <section className="section bg-paper">
+      <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[1fr_1fr] lg:gap-16">
+        <div>
+          <SectionHeading
+            eyebrow="História e missão"
+            title="Uma origem recente com propósito claro."
+            description={`O CMEBE foi fundado em ${institution.foundedAt} para reunir ministros evangélicos do Brasil e do exterior em torno de uma missão comum: fortalecer a unidade, promover capacitação, apoiar ministérios e contribuir para o crescimento da Igreja.`}
+          />
 
-            <div className="premium-shadow mt-8 rounded-lg border border-[#d9e5f5] bg-white p-6">
-              <div className="flex items-start gap-4">
-                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#163c78] text-[#f2dc99]">
-                  <Flag className="h-5 w-5" />
+          <figure className="mt-8 border-l-2 border-gold-500 pl-5">
+            <blockquote className="font-display text-2xl font-medium italic text-brand-800">
+              “{institution.slogan}”
+            </blockquote>
+            <figcaption className="mt-2 text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-gold-700">
+              Lema institucional
+            </figcaption>
+          </figure>
+        </div>
+
+        <div className="grid gap-5">
+          {statements.map((statement) => (
+            <article key={statement.title} className="cmebe-card p-6">
+              <statement.icon className="h-5 w-5 text-gold-600" aria-hidden />
+              <h3 className="mt-4 font-display text-lg font-semibold text-ink">
+                {statement.title}
+              </h3>
+              <p className="mt-2 leading-7 text-body">{statement.text}</p>
+            </article>
+          ))}
+
+          <div className="cmebe-card p-6">
+            <h3 className="font-display text-lg font-semibold text-ink">Valores</h3>
+            <div className="mt-4 flex flex-wrap gap-2">
+              {values.map((value) => (
+                <span
+                  key={value}
+                  className="rounded-md border border-line bg-paper px-3 py-1.5 text-sm font-medium text-brand-800"
+                >
+                  {value}
                 </span>
-                <div>
-                  <p className="text-sm font-semibold uppercase tracking-[0.18em] text-zinc-500">
-                    Slogan
-                  </p>
-                  <p className="mt-2 text-2xl font-black text-[#102b5c]">
-                    “{institution.slogan}”
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="grid gap-5">
-            {statements.map((statement) => (
-              <article
-                key={statement.title}
-                className="premium-shadow rounded-lg border border-[#d9e5f5] bg-white p-6"
-              >
-                <span className="flex h-12 w-12 items-center justify-center rounded-full bg-[#eaf2ff] text-[#b88924]">
-                  <statement.icon className="h-5 w-5" />
-                </span>
-                <h3 className="mt-5 text-xl font-bold text-[#102b5c]">
-                  {statement.title}
-                </h3>
-                <p className="mt-3 leading-7 text-zinc-600">{statement.text}</p>
-              </article>
-            ))}
-
-            <div className="brand-panel rounded-lg p-6 text-white">
-              <h3 className="text-xl font-bold">Valores</h3>
-              <div className="mt-5 flex flex-wrap gap-3">
-                {values.map((value) => (
-                  <span
-                    key={value}
-                    className="rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-semibold text-blue-50"
-                  >
-                    {value}
-                  </span>
-                ))}
-              </div>
+              ))}
             </div>
           </div>
         </div>

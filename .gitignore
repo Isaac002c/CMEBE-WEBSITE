@@ -39,3 +39,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local recovery/development artifacts
+/.recovered-production/
+/.claude/
+/prisma/dev.db

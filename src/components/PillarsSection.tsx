@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import type { ComponentType } from "react";
 
+import { CarouselHint } from "@/components/CarouselHint";
 import { pillars, type PillarIcon } from "@/data/pillars";
 import { SectionHeading } from "@/components/SectionHeading";
 
@@ -23,33 +24,64 @@ const iconMap: Record<PillarIcon, ComponentType<{ className?: string }>> = {
 };
 
 export function PillarsSection() {
+  const [featured, ...rest] = pillars;
+  const FeaturedIcon = iconMap[featured.icon];
+
   return (
-    <section className="soft-section px-4 py-24 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-7xl">
+    <section className="paper-engrave section">
+      <div className="mx-auto max-w-6xl">
         <SectionHeading
           eyebrow="Pilares"
           title="Fundamentos que sustentam a atuação do CMEBE."
-          description="Cada pilar foi pensado para apoiar ministros, igrejas e projetos cristãos com responsabilidade institucional, fraternidade e visão de Reino."
+          description="Cada pilar apoia ministros, igrejas e projetos cristãos com responsabilidade institucional, fraternidade e visão de Reino."
           align="center"
         />
 
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {pillars.map((pillar) => {
-            const Icon = iconMap[pillar.icon];
+        <div className="mt-12 grid gap-5 lg:grid-cols-[1.05fr_2fr] lg:items-stretch">
+          {/* Card de destaque (elimina o buraco do grid e cria hierarquia) */}
+          <article className="band-navy relative overflow-hidden rounded-lg p-6 sm:p-8">
+            <div className="cmebe-rule-gold absolute inset-x-0 top-0" />
+            <span className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-white/10 ring-1 ring-gold-500/30">
+              <FeaturedIcon className="h-6 w-6 text-gold-300" aria-hidden />
+            </span>
+            <h3 className="mt-5 font-display text-2xl font-semibold text-white">
+              {featured.title}
+            </h3>
+            <p className="mt-3 text-sm leading-7 text-brand-100">
+              {featured.description}
+            </p>
+            <p className="mt-6 text-xs font-medium uppercase tracking-[0.16em] text-gold-300">
+              Pilar central do CMEBE
+            </p>
+          </article>
 
-            return (
-              <article
-                key={pillar.title}
-                className="premium-shadow group rounded-lg border border-[#d9e5f5] bg-white p-6 transition hover:-translate-y-1 hover:border-[#c99a2e]"
-              >
-                <div className="flex h-14 w-14 items-center justify-center rounded-lg bg-[#163c78] text-[#f2dc99] transition group-hover:bg-[#c99a2e] group-hover:text-[#102b5c]">
-                  <Icon className="h-6 w-6" />
-                </div>
-                <h3 className="mt-6 text-xl font-bold text-[#102b5c]">{pillar.title}</h3>
-                <p className="mt-3 leading-7 text-zinc-600">{pillar.description}</p>
-              </article>
-            );
-          })}
+          <CarouselHint label="Deslize para ver os pilares" />
+
+          {/* Demais pilares: carrossel deslizante no mobile, grid 2x3 no desktop */}
+          <div
+            className="mobile-carousel mobile-carousel-compact no-scrollbar grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
+            role="region"
+            aria-label="Demais pilares do CMEBE"
+            tabIndex={0}
+          >
+            {rest.map((pillar) => {
+              const Icon = iconMap[pillar.icon];
+              return (
+                <article
+                  key={pillar.title}
+                  className="cmebe-card cmebe-card-hover flex flex-col p-5"
+                >
+                  <Icon className="h-6 w-6 shrink-0 text-gold-600" aria-hidden />
+                  <h3 className="mt-3 font-display text-base font-semibold text-ink">
+                    {pillar.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-7 text-body">
+                    {pillar.description}
+                  </p>
+                </article>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>

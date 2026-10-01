@@ -14,23 +14,19 @@ export function SectionHeading({
   inverse = false,
 }: SectionHeadingProps) {
   return (
-    <div
-      className={`mx-auto max-w-3xl ${
-        align === "center" ? "text-center" : "text-left"
-      }`}
-    >
+    <div className={align === "center" ? "mx-auto max-w-2xl text-center" : "max-w-2xl"}>
       {eyebrow ? (
         <p
-          className={`mb-3 text-xs font-black uppercase tracking-[0.22em] ${
-            inverse ? "text-[#f2dc99]" : "text-[#b88924]"
+          className={`cmebe-eyebrow ${align === "center" ? "is-center" : ""} ${
+            inverse ? "on-dark" : ""
           }`}
         >
           {eyebrow}
         </p>
       ) : null}
       <h2
-        className={`text-3xl font-bold leading-tight sm:text-4xl ${
-          inverse ? "text-white" : "text-[#102b5c]"
+        className={`mt-4 text-3xl font-semibold leading-tight tracking-tight sm:text-4xl ${
+          inverse ? "text-white" : "text-ink"
         }`}
       >
         {title}
@@ -38,7 +34,7 @@ export function SectionHeading({
       {description ? (
         <p
           className={`mt-4 text-base leading-8 sm:text-lg ${
-            inverse ? "text-zinc-300" : "text-zinc-600"
+            inverse ? "text-brand-100" : "text-body"
           }`}
         >
           {description}

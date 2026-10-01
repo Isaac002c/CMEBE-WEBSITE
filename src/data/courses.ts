@@ -1,27 +1,26 @@
-export type Course = {
+// Currículo real do Curso de Capelania Cristã (Escola de Profetas / CMEBE),
+// com módulos e instrutores informados pela instituição.
+export type CapelaniaModule = {
   title: string;
-  description: string;
+  instructor: string;
+  note?: string;
 };
 
-export const featuredCourses: Course[] = [
+export const capelaniaModules: CapelaniaModule[] = [
   {
-    title: "Capelania Cristã",
-    description: "Formação para presença cristã em hospitais, instituições e contextos de cuidado.",
+    title: "Introdução à Capelania",
+    instructor: "Capl. Pr. Gerson Martins",
+    note: "Coordenação",
   },
+  { title: "Capelania Hospitalar", instructor: "Capl. Pr. Wágner Bezerra" },
+  { title: "Capelania Social", instructor: "Instrutora Pra. Lilian" },
   {
-    title: "Métodos de Estudos Bíblicos",
-    description: "Ferramentas para interpretação, organização e aplicação responsável das Escrituras.",
+    title: "A Psicanálise na Capelania",
+    instructor: "Capl. Pra. Paula Oliveira",
+    note: "O sofrimento humano",
   },
-  {
-    title: "Formação Ministerial",
-    description: "Fundamentos para obreiros, líderes e vocacionados em desenvolvimento.",
-  },
-  {
-    title: "Ensino Religioso",
-    description: "Preparo para atuação educacional com responsabilidade, ética e clareza cristã.",
-  },
-  {
-    title: "Liderança Cristã",
-    description: "Princípios de governo, serviço, cuidado e condução de equipes ministeriais.",
-  },
+  { title: "Capelania Fúnebre", instructor: "Instrutor Pr. José Pereira" },
+  { title: "Capelania Escolar", instructor: "Instrutor Pr. Alberto Carlos" },
+  { title: "Capelania Empresarial", instructor: "Instrutor Pr. Anderson André" },
+  { title: "Capelania Prisional", instructor: "Capl. Pr. Gerson Martins" },
 ];

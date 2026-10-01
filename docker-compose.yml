@@ -1,0 +1,22 @@
+# CMEBE — app rodando na VPS, atrás do nginx (como os demais apps Chronostek).
+# Conecta no Postgres LOCAL (container cmebe-postgres, porta 5433 do host) —
+# sem expor o banco à internet e sem túnel.
+#
+# Uso na VPS (no diretório do projeto):
+#   1. crie o arquivo .env (ver docs/cmebe-vps.md) — NÃO é versionado
+#   2. docker compose up -d --build
+#
+# Publica só em 127.0.0.1:8090 → o nginx faz o proxy do domínio para cá.
+
+services:
+  cmebe-app:
+    build: .
+    image: cmebe-app
+    container_name: cmebe-app
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - "127.0.0.1:8090:3000"
+    # Permite o container alcançar o Postgres publicado no host (5433).
+    extra_hosts:
+      - "host.docker.internal:host-gateway"

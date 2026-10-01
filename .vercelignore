@@ -1,0 +1,10 @@
+tmp
+output
+.git
+.next
+node_modules
+.env*
+*.log
+.recovered-production
+.claude
+prisma/dev.db

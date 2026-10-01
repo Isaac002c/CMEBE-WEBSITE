@@ -1,108 +1,106 @@
-"use client";
-
 import Link from "next/link";
-import { MessageCircle, Send } from "lucide-react";
-import type { FormEvent } from "react";
+import { ArrowRight, MessageCircle } from "lucide-react";
 
 import { SectionHeading } from "@/components/SectionHeading";
 import { institution } from "@/data/institution";
 import { buildWhatsappUrl, joinMessage } from "@/lib/whatsapp";
 
-const fields = [
-  { name: "nome", label: "Nome completo", type: "text", required: true },
-  { name: "telefone", label: "Telefone/WhatsApp", type: "tel", required: true },
-  { name: "email", label: "E-mail", type: "email", required: true },
-  { name: "cidade", label: "Cidade/Estado", type: "text", required: true },
-  { name: "funcao", label: "Função ministerial", type: "text", required: true },
-  { name: "igreja", label: "Igreja/Ministério", type: "text", required: true },
-] as const;
+// Numeração real: estas são etapas sequenciais do processo de filiação.
+const steps = [
+  {
+    n: "1",
+    title: "Crie sua conta e envie a solicitação",
+    text: "Preencha seus dados ministeriais. A solicitação entra como pendente de análise.",
+  },
+  {
+    n: "2",
+    title: "Análise pelo CMEBE",
+    text: "A equipe avalia os dados e pode solicitar documentos adicionais.",
+  },
+  {
+    n: "3",
+    title: "Aprovação e credenciamento",
+    text: "Após aprovada, a filiação recebe número e reconhecimento institucional.",
+  },
+  {
+    n: "4",
+    title: "Publicação no diretório",
+    text: "Com sua autorização, o perfil pode aparecer na área pública de filiados.",
+  },
+];
 
 export function JoinSection() {
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-
-    const formData = new FormData(event.currentTarget);
-    const message = [
-      joinMessage,
-      "",
-      "Dados para filiação:",
-      `Nome completo: ${formData.get("nome") ?? ""}`,
-      `Telefone/WhatsApp: ${formData.get("telefone") ?? ""}`,
-      `E-mail: ${formData.get("email") ?? ""}`,
-      `Cidade/Estado: ${formData.get("cidade") ?? ""}`,
-      `Função ministerial: ${formData.get("funcao") ?? ""}`,
-      `Igreja/Ministério: ${formData.get("igreja") ?? ""}`,
-      `Mensagem: ${formData.get("mensagem") ?? ""}`,
-    ].join("\n");
-
-    window.open(buildWhatsappUrl(message), "_blank", "noopener,noreferrer");
-  }
-
   return (
-    <section id="filiacao" className="bg-white px-4 py-24 sm:px-6 lg:px-8">
-      <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:items-start">
-        <div className="lg:sticky lg:top-28">
+    <section id="filiacao" className="section bg-paper">
+      <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[1fr_1fr] lg:gap-16">
+        <div>
           <SectionHeading
-            eyebrow="Filie-se já"
-            title="Faça parte do CMEBE"
-            description="Junte-se a uma rede de ministros, líderes e vocacionados comprometidos com a expansão do Reino."
+            eyebrow="Filiação"
+            title="Inicie sua solicitação de filiação"
+            description="A filiação ao CMEBE é feita por um processo transparente: você cria sua conta, acompanha o status e o conselho analisa cada solicitação."
           />
 
-          <div className="brand-panel relative mt-8 overflow-hidden rounded-lg p-7 text-white shadow-[0_28px_70px_rgba(22,60,120,0.18)]">
-            <div className="absolute inset-y-0 left-0 w-1 bg-[#c99a2e]" />
-            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#f2dc99]">
-              Atendimento via WhatsApp
+          <ol className="mt-10 space-y-5">
+            {steps.map((step) => (
+              <li key={step.n} className="flex gap-4">
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-brand-200 font-display text-sm font-semibold text-brand-800">
+                  {step.n}
+                </span>
+                <div>
+                  <h3 className="font-display text-base font-semibold text-ink">
+                    {step.title}
+                  </h3>
+                  <p className="mt-1 text-sm leading-7 text-body">{step.text}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+
+        <div className="lg:pt-4">
+          <div className="cmebe-card p-7 sm:p-8">
+            <h3 className="font-display text-xl font-semibold text-ink">
+              Solicite sua filiação
+            </h3>
+            <p className="mt-2 text-sm leading-7 text-body">
+              Crie sua conta para enviar a solicitação e acompanhar o andamento na
+              área “Minha filiação”.
             </p>
-            <h3 className="mt-3 text-2xl font-bold">Quero me filiar agora</h3>
-            <p className="mt-3 leading-7 text-blue-50/85">
-              Fale com a equipe pelo número {institution.phone} e receba orientação
-              sobre documentação, benefícios e próximos passos.
-            </p>
+            <div className="mt-6 flex flex-col gap-3">
+              <Link href="/cadastro" className="btn btn-primary w-full">
+                Criar conta e solicitar filiação
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+              <Link href="/entrar" className="btn btn-secondary w-full">
+                Já tenho conta — entrar
+              </Link>
+              <Link
+                href="/credenciais#documentos"
+                className="text-center text-sm font-semibold text-brand-800 underline decoration-gold-500/50 underline-offset-4"
+              >
+                Consultar documentos necessários e modelos
+              </Link>
+            </div>
+          </div>
+
+          <div className="mt-4 flex items-center justify-between gap-4 rounded-md border border-line bg-surface px-5 py-4">
+            <div>
+              <p className="text-sm font-semibold text-ink">Precisa de ajuda?</p>
+              <p className="text-xs text-muted">
+                Suporte pelo WhatsApp {institution.phone}
+              </p>
+            </div>
             <Link
               href={buildWhatsappUrl(joinMessage)}
               target="_blank"
-              className="luxe-button mt-6 inline-flex h-14 w-full items-center justify-center gap-2 rounded-full px-6 text-base font-extrabold transition sm:w-auto"
+              rel="noopener noreferrer"
+              className="btn btn-secondary h-10 px-4 text-sm"
             >
-              <MessageCircle className="h-5 w-5" />
-              Quero me filiar agora
+              <MessageCircle className="h-4 w-4" />
+              WhatsApp
             </Link>
           </div>
         </div>
-
-        <form
-          onSubmit={handleSubmit}
-          className="premium-shadow rounded-lg border border-[#d9e5f5] bg-white p-5 sm:p-8"
-        >
-          <div className="grid gap-5 md:grid-cols-2">
-            {fields.map((field) => (
-              <label key={field.name} className="block">
-                <span className="text-sm font-bold text-[#102b5c]">{field.label}</span>
-                <input
-                  name={field.name}
-                  type={field.type}
-                  required={field.required}
-                  className="mt-2 h-12 w-full rounded-lg border border-[#d9e5f5] bg-[#f7faff] px-4 text-sm font-medium text-[#102b5c] outline-none transition placeholder:text-slate-400 focus:border-[#c99a2e] focus:bg-white focus:ring-4 focus:ring-[#f2dc99]/45"
-                />
-              </label>
-            ))}
-            <label className="block md:col-span-2">
-              <span className="text-sm font-bold text-[#102b5c]">Mensagem</span>
-              <textarea
-                name="mensagem"
-                rows={5}
-                className="mt-2 w-full resize-none rounded-lg border border-[#d9e5f5] bg-[#f7faff] px-4 py-3 text-sm font-medium text-[#102b5c] outline-none transition placeholder:text-slate-400 focus:border-[#c99a2e] focus:bg-white focus:ring-4 focus:ring-[#f2dc99]/45"
-              />
-            </label>
-          </div>
-
-          <button
-            type="submit"
-            className="blue-button mt-6 inline-flex h-14 w-full items-center justify-center gap-2 rounded-full px-6 text-base font-extrabold transition hover:-translate-y-0.5 sm:w-auto"
-          >
-            <Send className="h-5 w-5" />
-            Enviar pelo WhatsApp
-          </button>
-        </form>
       </div>
     </section>
   );

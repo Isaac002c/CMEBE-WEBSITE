@@ -1,0 +1,152 @@
+// CMEBE — schema de dados
+// Produção: PostgreSQL (ver docs/cmebe-env.md e docs/cmebe-deploy.md).
+// Dev local: aponte DATABASE_URL para um Postgres (local ou o mesmo de produção
+// em schema separado). O provider é postgresql desde o deploy inicial.
+//
+// Observação: os campos `role` e `status` são String (não enums nativos) e seus
+// valores válidos estão centralizados em src/lib/constants.ts (Role,
+// AffiliationStatus) e validados no servidor com zod.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  phone        String
+  passwordHash String
+  role         String   @default("AFFILIATE") // ver Role em src/lib/constants.ts
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  profile      AffiliateProfile?
+  sessions     Session[]
+  auditActions AuditLog[]        @relation("ActorAudit")
+
+  @@index([role])
+}
+
+model AffiliateProfile {
+  id     String @id @default(cuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  city           String
+  state          String
+  ministerialRole String
+  church         String
+  presentation   String?
+
+  // Campos controlados APENAS pelo servidor (MASTER). Nunca aceitos do cliente.
+  status           String   @default("PENDING") // ver AffiliationStatus
+  publicVisible    Boolean  @default(false)
+  membershipNumber String?  @unique
+  rejectionReason  String?
+  reviewedById     String?
+  reviewedAt       DateTime?
+
+  // Consentimentos (LGPD)
+  consentPrivacy       Boolean @default(false)
+  consentPublicDisplay Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  documentRequests DocumentRequest[]
+
+  @@index([status])
+  @@index([publicVisible])
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tokenHash String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+model AuditLog {
+  id           String   @id @default(cuid())
+  actorId      String
+  actor        User     @relation("ActorAudit", fields: [actorId], references: [id])
+  action       String   // ex.: APPROVE, REJECT, REQUEST_DOCS, SUSPEND, REACTIVATE, SET_VISIBILITY
+  targetUserId String?
+  fromStatus   String?
+  toStatus     String?
+  reason       String?
+  metadata     String?  // JSON serializado
+  createdAt    DateTime @default(now())
+
+  @@index([targetUserId])
+  @@index([actorId])
+}
+
+model DocumentRequest {
+  id        String           @id @default(cuid())
+  profileId String
+  profile   AffiliateProfile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  message   String
+  resolved  Boolean          @default(false)
+  createdAt DateTime         @default(now())
+
+  @@index([profileId])
+}
+
+// Associados / parceiros da CMEBE (área comercial, aprovada pelo ADMIN — o
+// vice-presidente Pr. Gerson). Fluxo próprio, separado da filiação ministerial.
+// status e active são controlados APENAS pelo servidor (nunca vêm do cliente).
+// Valores válidos de status/partnerType em src/lib/constants.ts.
+model Partner {
+  id              String  @id @default(cuid())
+  institutionName String // nome da instituição/parceiro
+  responsibleName String // nome do responsável
+  responsibleRole String // cargo/função do responsável
+  email           String
+  phone           String // telefone/WhatsApp
+  city            String
+  state           String
+  partnerType     String // Igreja, Ministério, Empresa, Prestador de Serviço, Instituição, Outro
+  businessSegment String? // ramo/segmento (ver PARTNER_SEGMENTS em constants)
+  description     String // descrição da instituição/parceiro
+  services        String // serviços oferecidos
+  address         String? // endereço (opcional)
+
+  // Identidade visual (por ora URLs; upload real fica para depois — ver docs)
+  logoUrl   String?
+  bannerUrl String?
+
+  // Contatos e redes sociais (opcionais)
+  website   String?
+  instagram String?
+  facebook  String?
+  linkedin  String?
+
+  notes String? // observações adicionais (opcional)
+
+  // Campos controlados só pelo ADMIN/servidor:
+  status          String    @default("PENDING") // PENDING, APPROVED, REJECTED, NEGOTIATING
+  active          Boolean   @default(true) // ativar/desativar parceiro aprovado
+  rejectionReason String?
+  reviewedById    String?
+  reviewedAt      DateTime?
+  approvedAt      DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([status])
+  @@index([active])
+  @@index([businessSegment])
+}

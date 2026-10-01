@@ -1,64 +1,58 @@
-import { CheckCircle2, FileBadge2, Gem } from "lucide-react";
+import Image from "next/image";
+import { Check, FileBadge2 } from "lucide-react";
 
 import { benefits } from "@/data/benefits";
 import { SectionHeading } from "@/components/SectionHeading";
 
 export function BenefitsSection() {
   return (
-    <section id="beneficios" className="bg-white px-4 py-24 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-7xl">
-        <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+    <section id="beneficios" className="section bg-surface">
+      <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
+        <div className="lg:sticky lg:top-28 lg:self-start">
           <SectionHeading
             eyebrow="Benefícios"
-            title="Condições e benefícios imperdíveis"
-            description="Filie-se ao CMEBE e tenha acesso a credenciais, certificados, formação ministerial e benefícios exclusivos."
+            title="Benefícios da filiação"
+            description="A filiação reúne credenciais, certificados e formação ministerial, organizados para oferecer reconhecimento, preparo e documentação ao ministro filiado."
           />
-          <div className="brand-panel relative overflow-hidden rounded-lg p-7 text-white shadow-[0_28px_70px_rgba(22,60,120,0.18)]">
-            <div className="absolute inset-y-0 left-0 w-1 bg-[#c99a2e]" />
-            <div className="flex items-start gap-4">
-              <span className="luxe-button flex h-12 w-12 shrink-0 items-center justify-center rounded-full">
-                <Gem className="h-6 w-6" />
-              </span>
-              <div>
-                <h3 className="text-xl font-bold">Filiação com valor institucional</h3>
-                <p className="mt-2 leading-7 text-blue-50/85">
-                  A estrutura de benefícios foi organizada para oferecer
-                  reconhecimento, preparo e documentação ao ministro filiado.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
 
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {benefits.map((benefit, index) => (
-            <article
-              key={benefit.title}
-              className="premium-shadow rounded-lg border border-[#d9e5f5] bg-white p-6 transition hover:-translate-y-1 hover:border-[#c99a2e]"
-            >
-              <div className="flex items-center justify-between gap-4">
-                <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[#eaf2ff] text-[#c99a2e]">
-                  <CheckCircle2 className="h-6 w-6" />
-                </span>
-                <span className="text-sm font-black text-zinc-300">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-              </div>
-              <h3 className="mt-6 text-xl font-bold text-[#102b5c]">{benefit.title}</h3>
-              <p className="mt-3 leading-7 text-zinc-600">{benefit.description}</p>
-            </article>
-          ))}
-        </div>
+          <figure className="mt-6 overflow-hidden rounded-md border border-line shadow-[0_14px_40px_rgba(12,35,72,0.12)]">
+            <Image
+              src="/images/beneficios-certificado.jpg"
+              alt="Certificado oficial de Capelania Cristã emitido pelo CMEBE, assinado pela diretoria"
+              width={1200}
+              height={675}
+              sizes="(max-width: 1024px) 100vw, 460px"
+              className="h-auto w-full"
+            />
+            <figcaption className="bg-paper px-4 py-2.5 text-xs text-muted">
+              Certificado oficial de Capelania Cristã emitido pelo CMEBE.
+            </figcaption>
+          </figure>
 
-        <div className="mt-8 rounded-lg border border-[#f2dc99] bg-[#fff9e8] p-5 text-[#102b5c]">
-          <div className="flex items-start gap-3">
-            <FileBadge2 className="mt-1 h-5 w-5 shrink-0 text-[#b88924]" />
-            <p className="leading-7">
+          <div className="mt-6 flex items-start gap-3 rounded-md border border-gold-300 bg-[#fdf9ee] p-4 text-brand-900">
+            <FileBadge2 className="mt-0.5 h-5 w-5 shrink-0 text-gold-700" aria-hidden />
+            <p className="text-sm leading-7">
               Credenciais e certificados dependem da validação documental e dos
               critérios internos do conselho.
             </p>
           </div>
         </div>
+
+        <ul className="divide-y divide-line border-y border-line">
+          {benefits.map((benefit) => (
+            <li key={benefit.title} className="flex gap-4 py-5">
+              <span className="mt-0.5 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-gold-300 text-gold-600">
+                <Check className="h-4 w-4" aria-hidden />
+              </span>
+              <div>
+                <h3 className="font-display text-lg font-semibold text-ink">
+                  {benefit.title}
+                </h3>
+                <p className="mt-1 text-sm leading-7 text-body">{benefit.description}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );

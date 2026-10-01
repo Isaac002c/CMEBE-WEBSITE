@@ -11,6 +11,13 @@ const compat = new FlatCompat({
 
 const eslintConfig = defineConfig([
   ...compat.extends("next/core-web-vitals", "next/typescript"),
+  {
+    files: ["src/app/opengraph-image.tsx"],
+    rules: {
+      // ImageResponse renderiza imagens remotas com a tag nativa.
+      "@next/next/no-img-element": "off",
+    },
+  },
   // Override default ignores of eslint-config-next.
   globalIgnores([
     // Default ignores of eslint-config-next:

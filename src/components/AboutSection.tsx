@@ -1,78 +1,65 @@
-import { CalendarDays, Crown, MapPin } from "lucide-react";
+import Image from "next/image";
 
 import { institution, ministerialFunctions } from "@/data/institution";
 import { SectionHeading } from "@/components/SectionHeading";
 
-const highlights = [
-  {
-    icon: CalendarDays,
-    label: "Fundação",
-    value: institution.foundedAt,
-  },
-  {
-    icon: Crown,
-    label: "Presidente",
-    value: institution.president,
-  },
-  {
-    icon: MapPin,
-    label: "Sede",
-    value: "Sepetiba, Rio de Janeiro - RJ",
-  },
+const facts = [
+  { label: "Fundação", value: institution.foundedAt },
+  { label: "Presidente", value: institution.president },
+  { label: "Sede", value: "Sepetiba, Rio de Janeiro – RJ" },
+  { label: "CNPJ", value: institution.cnpj },
 ];
 
 export function AboutSection() {
   return (
-    <section id="sobre" className="bg-white px-4 py-24 sm:px-6 lg:px-8">
-      <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.9fr_1.1fr]">
+    <section id="sobre" className="section border-t border-line bg-surface">
+      <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:gap-16">
+        <div className="lg:sticky lg:top-28 lg:self-start">
+          <figure className="relative aspect-[4/5] overflow-hidden rounded-md border border-line shadow-[0_18px_48px_rgba(12,35,72,0.12)]">
+            <Image
+              src="/images/sobre-conselho.jpg"
+              alt="Cerimônia institucional do CMEBE com a diretoria e ministros à mesa de honra"
+              fill
+              sizes="(max-width: 1024px) 100vw, 420px"
+              className="object-cover object-top"
+            />
+          </figure>
+          <p className="mt-3 text-xs text-muted">
+            Cerimônia institucional do CMEBE — diretoria e ministros.
+          </p>
+        </div>
+
         <div>
           <SectionHeading
             eyebrow="Sobre o CMEBE"
             title="Um conselho para unir, reconhecer e fortalecer lideranças cristãs."
-            description="O CMEBE nasceu com o propósito de unir ministros evangélicos, fortalecer vocações e criar uma rede de apoio, capacitação e reconhecimento ministerial no Brasil e no exterior. Nosso compromisso é promover comunhão, desenvolvimento, formação e suporte aos líderes que desejam servir com excelência ao Reino de Deus."
+            description="O CMEBE nasceu para unir ministros evangélicos, fortalecer vocações e criar uma rede de apoio, capacitação e reconhecimento ministerial no Brasil e no exterior, promovendo comunhão, formação e suporte aos líderes que servem ao Reino de Deus."
           />
 
-          <div className="mt-8 grid gap-4">
-            {highlights.map((item) => (
-              <div
-                key={item.label}
-                className="premium-shadow flex items-start gap-4 rounded-lg border border-[#d9e5f5] bg-white p-5"
-              >
-                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#163c78] text-[#f2dc99]">
-                  <item.icon className="h-5 w-5" />
-                </span>
-                <span>
-                  <span className="text-sm font-semibold uppercase tracking-[0.16em] text-zinc-500">
-                    {item.label}
-                  </span>
-                  <span className="mt-1 block font-bold leading-7 text-[#102b5c]">
-                    {item.value}
-                  </span>
-                </span>
+          <dl className="mt-8 grid gap-x-6 gap-y-3 sm:grid-cols-2">
+            {facts.map((item) => (
+              <div key={item.label} className="border-b border-line pb-3">
+                <dt className="text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-gold-700">
+                  {item.label}
+                </dt>
+                <dd className="mt-1 text-sm font-medium text-ink">{item.value}</dd>
               </div>
             ))}
-          </div>
-        </div>
+          </dl>
 
-        <div className="brand-panel relative overflow-hidden rounded-lg p-8 text-white shadow-[0_28px_70px_rgba(22,60,120,0.18)]">
-          <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#f2dc99] via-[#c99a2e] to-[#f2dc99]" />
-          <p className="text-xs font-black uppercase tracking-[0.22em] text-[#f2dc99]">
+          <h3 className="mt-8 font-display text-lg font-semibold text-ink">
             Lideranças contempladas
-          </p>
-          <h3 className="mt-4 text-2xl font-bold leading-tight sm:text-3xl">
-            Uma casa institucional para vocacionados de diferentes frentes.
           </h3>
-          <p className="mt-5 leading-8 text-blue-50/85">
-            A instituição é voltada para líderes evangélicos de ambos os sexos,
-            respeitando as peculiaridades de cada denominação e incentivando a
-            cooperação para o crescimento do Reino de Deus.
+          <p className="mt-2 text-sm leading-7 text-body">
+            Voltado a líderes evangélicos de ambos os sexos, respeitando as
+            peculiaridades de cada denominação e incentivando a cooperação para o
+            crescimento do Reino de Deus.
           </p>
-
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="mt-4 flex flex-wrap gap-2">
             {ministerialFunctions.map((role) => (
               <span
                 key={role}
-                className="rounded-full border border-[#f2dc99]/25 bg-white/10 px-4 py-2 text-sm font-semibold text-blue-50"
+                className="rounded-md border border-line bg-paper px-3 py-1.5 text-sm font-medium text-brand-800"
               >
                 {role}
               </span>

@@ -6,8 +6,8 @@ export const institution = {
   president: "Pr. José Carlos Domingos",
   address:
     "Estrada de Sepetiba nº 5236, Sepetiba, Rio de Janeiro - RJ, Brasil, CEP 23545-003",
-  phone: "(21) 98646-7700",
-  whatsappNumber: "5521986467700",
+  phone: "(21) 96441-8167",
+  whatsappNumber: "5521964418167",
   cnpj: "55.500.596/0001-80",
   instagram: "cmebeoficial",
   instagramUrl: "https://www.instagram.com/cmebeoficial/",
@@ -27,12 +27,24 @@ export const ministerialFunctions = [
   "Empreendedores e líderes cristãos",
 ] as const;
 
+// Páginas institucionais prioritárias (rotas reais).
 export const quickLinks = [
-  { label: "Início", href: "#inicio" },
-  { label: "Sobre o CMEBE", href: "#sobre" },
-  { label: "Benefícios", href: "#beneficios" },
-  { label: "Filiados", href: "#filiados" },
-  { label: "Escola de Profetas", href: "#escola" },
-  { label: "Filie-se", href: "#filiacao" },
-  { label: "Contato", href: "#contato" },
+  { label: "Sobre", href: "/sobre" },
+  { label: "Agenda", href: "/agenda" },
+  { label: "Diretoria", href: "/sobre#diretoria" },
+  { label: "Credenciais e Estatuto", href: "/credenciais" },
+  { label: "Empreendedor CMEBE", href: "/empreendedores" },
+  { label: "Contato", href: "/contato" },
 ] as const;
+
+// Link para a área comercial (rota própria), destacado na navegação.
+export const beneficiosLink = {
+  label: "CMEBE Benefícios",
+  href: "/beneficios",
+} as const;
+
+// Área pública de associados/parceiros aprovados (rota própria).
+export const associadosLink = {
+  label: "Associados",
+  href: "/associados",
+} as const;
