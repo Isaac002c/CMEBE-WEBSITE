@@ -14,6 +14,7 @@ export type CmebeEvent = {
   venue: string;
   address?: string;
   image?: string;
+  imageAspect?: "square" | "landscape";
   note?: string;
   featured?: boolean;
   endsAt?: string;
@@ -88,7 +89,6 @@ export const officialEvents: CmebeEvent[] = [
     address: "Estrada de Sepetiba, 5.236 – Sepetiba – RJ",
     image: "/images/events/encontro-oracao-da-nacao-01-outubro-2026.jpeg",
     note: "Participe, ore e divulgue.",
-    featured: true,
   },
   {
     id: "escola-profetas-piracicaba",
@@ -98,10 +98,15 @@ export const officialEvents: CmebeEvent[] = [
     year: "2026",
     weekday: "Sábado",
     time: "9h",
-    title: "Escola de Profetas CMEBE – Piracicaba/SP",
-    host: "Pr. Uindo Lino de Almeida (Superintendente)",
-    speaker: "Pr. José Carlos Domingos (Presidente)",
-    venue: "Local a confirmar",
+    title: "Primeira Escola de Profetas CMEBE – Piracicaba/SP",
+    details: ["Palestrante: Pr. José Carlos Domingos"],
+    host: "Pr. Uindo Lino de Almeida",
+    venue: "Distrito de Ártemis, Piracicaba/SP",
+    address: "Rua Dona Elvira, 949 – Distrito de Ártemis – Piracicaba/SP",
+    image: "/images/events/piracicaba-caravana.jpg",
+    imageAspect: "landscape",
+    note: "Informações e inscrições do encontro: Pr. Gerson Martins · (21) 96441-8167.",
+    featured: true,
   },
   {
     id: "confraternizacao",

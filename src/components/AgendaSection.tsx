@@ -167,14 +167,18 @@ export function AgendaSection({ full = false }: { full?: boolean }) {
                 {featuredEvent.image ? (
                   <Link
                     href={`/agenda/${featuredEvent.id}`}
-                    className="relative -mx-7 -mt-7 mb-7 block aspect-square overflow-hidden border-b border-gold-500/25 sm:-mx-9 sm:-mt-9 sm:mb-8"
+                    className={`relative -mx-7 -mt-7 mb-7 block overflow-hidden border-b border-gold-500/25 sm:-mx-9 sm:-mt-9 sm:mb-8 ${
+                      featuredEvent.imageAspect === "landscape"
+                        ? "aspect-[3/2] bg-brand-950"
+                        : "aspect-square"
+                    }`}
                     aria-label={`Ver detalhes de ${featuredEvent.title}`}
                   >
                     <Image
                       src={featuredEvent.image}
                       alt={`Arte oficial de ${featuredEvent.title}`}
                       fill
-                      className="object-cover"
+                      className={featuredEvent.imageAspect === "landscape" ? "object-contain" : "object-cover"}
                       sizes="(max-width: 1024px) 100vw, 46vw"
                     />
                   </Link>

@@ -8,6 +8,7 @@ import {
   Clock3,
   FileText,
   MapPin,
+  MessageCircle,
   Mic2,
   UserRound,
 } from "lucide-react";
@@ -204,19 +205,84 @@ export default async function EventPage({ params }: EventPageProps) {
             </div>
 
             {event.image ? (
-              <figure className="mx-auto mt-8 max-w-3xl overflow-hidden rounded-2xl border border-line bg-white p-3 shadow-[0_16px_50px_rgba(12,35,72,0.07)] sm:p-5">
-                <Image
-                  src={event.image}
-                  alt={`Arte oficial de ${event.title}`}
-                  width={720}
-                  height={720}
-                  className="h-auto w-full rounded-xl object-contain"
-                  sizes="(max-width: 768px) 100vw, 768px"
-                />
+              <figure
+                className={`mx-auto mt-8 overflow-hidden rounded-2xl border border-line bg-white p-3 shadow-[0_16px_50px_rgba(12,35,72,0.07)] sm:p-5 ${
+                  event.imageAspect === "landscape" ? "max-w-5xl" : "max-w-3xl"
+                }`}
+              >
+                <div
+                  className={`relative w-full overflow-hidden rounded-xl ${
+                    event.imageAspect === "landscape" ? "aspect-[3/2]" : "aspect-square"
+                  }`}
+                >
+                  <Image
+                    src={event.image}
+                    alt={`Arte oficial de ${event.title}`}
+                    fill
+                    className="object-contain"
+                    sizes="(max-width: 768px) 100vw, 1024px"
+                  />
+                </div>
                 <figcaption className="px-2 pb-1 pt-4 text-center text-xs font-semibold uppercase tracking-[0.1em] text-muted">
-                  Arte oficial do evento
+                  Arte de divulgação e transporte do evento
                 </figcaption>
               </figure>
+            ) : null}
+
+            {event.id === "escola-profetas-piracicaba" ? (
+              <div className="mx-auto mt-8 grid max-w-5xl gap-6 lg:grid-cols-2">
+                <article className="rounded-2xl border border-gold-500/25 bg-white p-6 shadow-[0_16px_50px_rgba(12,35,72,0.07)] sm:p-8">
+                  <p className="cmebe-eyebrow">Caravana CMEBE</p>
+                  <h2 className="mt-3 font-display text-2xl font-semibold text-ink">
+                    Transporte para Piracicaba
+                  </h2>
+                  <dl className="mt-6 grid gap-4 text-sm leading-6 text-body">
+                    <div>
+                      <dt className="font-bold text-ink">Saída</dt>
+                      <dd>Sexta-feira, 20 de novembro, à meia-noite.</dd>
+                    </div>
+                    <div>
+                      <dt className="font-bold text-ink">Retorno</dt>
+                      <dd>Sábado, 21 de novembro, após o almoço.</dd>
+                    </div>
+                    <div>
+                      <dt className="font-bold text-ink">Valores indicados no panfleto</dt>
+                      <dd>Ida: R$ 125 · volta: R$ 125, com café e almoço incluídos.</dd>
+                    </div>
+                  </dl>
+                  <p className="mt-5 text-xs leading-5 text-muted">
+                    Consulte o responsável para confirmar ponto de embarque, disponibilidade e condições da viagem.
+                  </p>
+                  <a
+                    href="https://wa.me/5521964418167?text=Ol%C3%A1%21%20Gostaria%20de%20consultar%20a%20caravana%20para%20a%20Escola%20de%20Profetas%20em%20Piracicaba."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-primary mt-6"
+                  >
+                    <MessageCircle className="h-4 w-4" aria-hidden />
+                    Consultar a caravana
+                  </a>
+                </article>
+
+                <article className="rounded-2xl border border-line bg-brand-50 p-6 sm:p-8">
+                  <h2 className="font-display text-2xl font-semibold text-ink">
+                    Assista ao convite
+                  </h2>
+                  <video
+                    controls
+                    playsInline
+                    preload="none"
+                    poster="/images/events/escola-profetas-poster.jpg"
+                    className="mx-auto mt-5 max-h-[36rem] w-full max-w-sm rounded-xl bg-black object-contain"
+                  >
+                    <source src="/videos/events/escola-profetas-piracicaba.mp4" type="video/mp4" />
+                    Seu navegador não oferece suporte à reprodução de vídeo.
+                  </video>
+                  <p className="mt-3 text-xs leading-5 text-muted">
+                    Convite em vídeo da Primeira Escola de Profetas em Piracicaba.
+                  </p>
+                </article>
+              </div>
             ) : null}
           </section>
         </main>

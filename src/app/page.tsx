@@ -1,6 +1,7 @@
 import { AboutSection } from "@/components/AboutSection";
 import { AgendaSection } from "@/components/AgendaSection";
 import { ContactSection } from "@/components/ContactSection";
+import { CommunityHighlights } from "@/components/CommunityHighlights";
 import { CredentialsSection } from "@/components/CredentialsSection";
 import { CtaBand } from "@/components/CtaBand";
 import { DiretoriaSection } from "@/components/DiretoriaSection";
@@ -28,6 +29,7 @@ export default function Home() {
         <main>
           <Hero />
           <AgendaSection />
+          <CommunityHighlights />
           <DiretoriaSection />
           <PresidentSection />
           <CredentialsSection />
