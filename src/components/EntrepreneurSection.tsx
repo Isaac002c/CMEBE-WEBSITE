@@ -158,6 +158,12 @@ export function EntrepreneurSection({ standalone = false }: { standalone?: boole
                       {partner.phone}
                     </Link>
                   ) : null}
+                  {!partner.contacts?.length && !partner.whatsappNumber && partner.phone ? (
+                    <span className="inline-flex min-h-10 w-full items-center justify-center gap-2 rounded-md border border-line bg-brand-50 px-3 text-center text-xs font-semibold text-brand-800">
+                      <MessageCircle className="h-4 w-4 shrink-0" aria-hidden />
+                      {partner.phone}
+                    </span>
+                  ) : null}
                   {partner.instagramUrl && partner.instagram ? (
                     <Link
                       href={partner.instagramUrl}
@@ -180,7 +186,7 @@ export function EntrepreneurSection({ standalone = false }: { standalone?: boole
                       Ver localização
                     </Link>
                   ) : null}
-                  {!partner.contacts?.length && !partner.whatsappNumber && !partner.instagramUrl ? (
+                  {!partner.contacts?.length && !partner.whatsappNumber && !partner.instagramUrl && !partner.email && !partner.phone ? (
                     <span className="inline-flex min-h-10 w-full items-center justify-center gap-2 rounded-md border border-dashed border-brand-200 bg-brand-50 px-3 text-xs font-semibold text-muted">
                       <Store className="h-4 w-4" aria-hidden />
                       Contato em atualização

@@ -206,4 +206,25 @@ export const entrepreneurs: Entrepreneur[] = [
     instagramUrl: "https://www.instagram.com/sweetmartinsrj/",
     services: ["Bolos artesanais", "Doces gourmet", "Salgados finos"],
   },
+  {
+    name: "Histher Gráfica",
+    category: "Serviços gráficos",
+    image: "/images/empreendedor_CMEBE/histher_grafica.jpg",
+    description:
+      "Consulte a equipe sobre os serviços gráficos disponíveis e solicite um orçamento.",
+    phone: "(21) 96895-7385",
+    whatsappNumber: "5521968957385",
+    instagram: "@histher_grafica",
+    instagramUrl: "https://www.instagram.com/histher_grafica/",
+  },
+  {
+    name: "FastClean – Limpeza e Impermeabilização",
+    category: "Limpeza e impermeabilização",
+    image: "/images/empreendedor_CMEBE/fastclean.jpg",
+    description:
+      "Atende tapetes, sofás, poltronas, colchões, carpetes, bancos de carro e cadeiras de jantar.",
+    phone: "98572-0686 (DDD não informado no material)",
+    email: "fastclean1970@gmail.com",
+    services: ["Higienização de estofados", "Tapetes e carpetes", "Impermeabilização"],
+  },
 ];
