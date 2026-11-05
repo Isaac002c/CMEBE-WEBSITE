@@ -223,7 +223,7 @@ export const entrepreneurs: Entrepreneur[] = [
     image: "/images/empreendedor_CMEBE/fastclean.jpg",
     description:
       "Atende tapetes, sofás, poltronas, colchões, carpetes, bancos de carro e cadeiras de jantar.",
-    phone: "98572-0686 (DDD não informado no material)",
+    phone: "98572-0686",
     email: "fastclean1970@gmail.com",
     services: ["Higienização de estofados", "Tapetes e carpetes", "Impermeabilização"],
   },
