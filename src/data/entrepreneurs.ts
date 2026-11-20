@@ -4,6 +4,7 @@ export type Entrepreneur = {
   image?: string;
   description: string;
   phone?: string;
+  phones?: string[];
   whatsappNumber?: string;
   contacts?: Array<{
     name: string;
@@ -226,5 +227,16 @@ export const entrepreneurs: Entrepreneur[] = [
     phone: "98572-0686",
     email: "fastclean1970@gmail.com",
     services: ["Higienização de estofados", "Tapetes e carpetes", "Impermeabilização"],
+  },
+  {
+    name: "Cartório Brasil Certidões",
+    category: "Certidões e documentos",
+    image: "/images/empreendedor_CMEBE/cartorio_brasil_certidoes.jpg",
+    description:
+      "Solicite a 2ª via de certidões de nascimento, casamento e óbito, com busca em todo o território nacional.",
+    phones: ["(21) 3495-8863", "(21) 99650-1669"],
+    address:
+      "Rua Felipe Cardoso, 166, loja L – Santa Cruz – RJ · Centro Comercial Felipe Cardoso",
+    services: ["Nascimento", "Casamento", "Óbito"],
   },
 ];

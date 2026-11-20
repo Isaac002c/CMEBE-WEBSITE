@@ -7,6 +7,7 @@ import {
   MapPin,
   MessageCircle,
   Navigation,
+  Phone,
   Store,
   UserRound,
 } from "lucide-react";
@@ -164,6 +165,17 @@ export function EntrepreneurSection({ standalone = false }: { standalone?: boole
                       {partner.phone}
                     </span>
                   ) : null}
+                  {partner.phones?.map((phone) => (
+                    <a
+                      key={`${partner.name}-${phone}`}
+                      href={`tel:+55${phone.replace(/\D/g, "")}`}
+                      className="inline-flex min-h-10 w-full items-center justify-center gap-2 rounded-md border border-line bg-brand-50 px-3 text-center text-xs font-semibold text-brand-800 transition hover:border-brand-600"
+                      aria-label={`Ligar para ${partner.name} no número ${phone}`}
+                    >
+                      <Phone className="h-4 w-4 shrink-0" aria-hidden />
+                      {phone}
+                    </a>
+                  ))}
                   {partner.instagramUrl && partner.instagram ? (
                     <Link
                       href={partner.instagramUrl}
@@ -186,7 +198,7 @@ export function EntrepreneurSection({ standalone = false }: { standalone?: boole
                       Ver localização
                     </Link>
                   ) : null}
-                  {!partner.contacts?.length && !partner.whatsappNumber && !partner.instagramUrl && !partner.email && !partner.phone ? (
+                  {!partner.contacts?.length && !partner.whatsappNumber && !partner.instagramUrl && !partner.email && !partner.phone && !partner.phones?.length ? (
                     <span className="inline-flex min-h-10 w-full items-center justify-center gap-2 rounded-md border border-dashed border-brand-200 bg-brand-50 px-3 text-xs font-semibold text-muted">
                       <Store className="h-4 w-4" aria-hidden />
                       Contato em atualização
