@@ -160,7 +160,13 @@ export function AgendaSection({ full = false }: { full?: boolean }) {
             ))}
           </div>
         ) : (
-          <div className="mt-12 grid gap-6 lg:grid-cols-[0.92fr_1.08fr]">
+          <div
+            className={`mt-12 grid gap-6 ${
+              remainingEvents.length
+                ? "lg:grid-cols-[0.92fr_1.08fr]"
+                : "mx-auto max-w-3xl"
+            }`}
+          >
             <article className="band-navy relative overflow-hidden rounded-2xl border border-gold-500/30 p-7 shadow-[0_24px_70px_rgba(12,35,72,0.22)] sm:p-9">
               <div className="seal-watermark opacity-[0.035]" aria-hidden />
               <div className="relative">
@@ -186,7 +192,7 @@ export function AgendaSection({ full = false }: { full?: boolean }) {
                 <div className="flex items-start justify-between gap-4">
                   <DateBadge event={featuredEvent} inverse />
                   <span className="rounded-full bg-gold-500 px-3 py-1.5 text-[0.64rem] font-bold uppercase tracking-[0.12em] text-brand-950">
-                    Encontro em destaque
+                    Próximo evento
                   </span>
                 </div>
                 <p className="mt-8 cmebe-eyebrow on-dark">Evento em destaque</p>
@@ -222,48 +228,50 @@ export function AgendaSection({ full = false }: { full?: boolean }) {
               </div>
             </article>
 
-            <div className="overflow-hidden rounded-2xl border border-line bg-white shadow-[0_16px_50px_rgba(12,35,72,0.07)]">
-              <div className="flex items-center gap-3 border-b border-line px-5 py-4 sm:px-6">
-                <CalendarDays className="h-5 w-5 text-gold-600" aria-hidden />
-                <h3 className="text-lg font-semibold text-ink">Demais compromissos oficiais</h3>
-              </div>
-              <div className="divide-y divide-line">
-                {remainingEvents.map((event) => (
-                  <article key={event.id} className="flex gap-4 p-5 sm:p-6">
-                    <time
-                      dateTime={event.isoDate}
-                      className="flex h-14 w-14 shrink-0 flex-col items-center justify-center rounded-lg bg-brand-50 text-center"
-                    >
-                      <span className="text-[0.58rem] font-bold tracking-wider text-gold-700">
-                        {event.month}
-                      </span>
-                      <span className="font-display text-xl font-semibold leading-none text-ink">
-                        {event.day}
-                      </span>
-                    </time>
-                    <div className="min-w-0">
-                      <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs font-medium text-muted">
-                        <span>{event.weekday}</span>
-                        <span aria-hidden>•</span>
-                        <span className="font-semibold text-brand-700">{event.time}</span>
+            {remainingEvents.length ? (
+              <div className="overflow-hidden rounded-2xl border border-line bg-white shadow-[0_16px_50px_rgba(12,35,72,0.07)]">
+                <div className="flex items-center gap-3 border-b border-line px-5 py-4 sm:px-6">
+                  <CalendarDays className="h-5 w-5 text-gold-600" aria-hidden />
+                  <h3 className="text-lg font-semibold text-ink">Demais compromissos oficiais</h3>
+                </div>
+                <div className="divide-y divide-line">
+                  {remainingEvents.map((event) => (
+                    <article key={event.id} className="flex gap-4 p-5 sm:p-6">
+                      <time
+                        dateTime={event.isoDate}
+                        className="flex h-14 w-14 shrink-0 flex-col items-center justify-center rounded-lg bg-brand-50 text-center"
+                      >
+                        <span className="text-[0.58rem] font-bold tracking-wider text-gold-700">
+                          {event.month}
+                        </span>
+                        <span className="font-display text-xl font-semibold leading-none text-ink">
+                          {event.day}
+                        </span>
+                      </time>
+                      <div className="min-w-0">
+                        <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs font-medium text-muted">
+                          <span>{event.weekday}</span>
+                          <span aria-hidden>•</span>
+                          <span className="font-semibold text-brand-700">{event.time}</span>
+                        </div>
+                        <h4 className="mt-1.5 text-base font-semibold leading-6 text-ink">
+                          <Link
+                            href={`/agenda/${event.id}`}
+                            className="transition hover:text-brand-700"
+                          >
+                            {event.title}
+                          </Link>
+                        </h4>
+                        <p className="mt-1.5 flex items-start gap-1.5 text-xs leading-5 text-muted">
+                          <MapPin className="mt-0.5 h-3.5 w-3.5 shrink-0 text-gold-600" aria-hidden />
+                          {event.venue}
+                        </p>
                       </div>
-                      <h4 className="mt-1.5 text-base font-semibold leading-6 text-ink">
-                        <Link
-                          href={`/agenda/${event.id}`}
-                          className="transition hover:text-brand-700"
-                        >
-                          {event.title}
-                        </Link>
-                      </h4>
-                      <p className="mt-1.5 flex items-start gap-1.5 text-xs leading-5 text-muted">
-                        <MapPin className="mt-0.5 h-3.5 w-3.5 shrink-0 text-gold-600" aria-hidden />
-                        {event.venue}
-                      </p>
-                    </div>
-                  </article>
-                ))}
+                    </article>
+                  ))}
+                </div>
               </div>
-            </div>
+            ) : null}
           </div>
         )}
 

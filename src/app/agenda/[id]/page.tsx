@@ -10,6 +10,7 @@ import {
   MapPin,
   MessageCircle,
   Mic2,
+  Phone,
   UserRound,
 } from "lucide-react";
 
@@ -43,7 +44,7 @@ export async function generateMetadata({
     title: event.title,
     description: [
       event.title,
-      `${event.day}/${event.month}/${event.year}, às ${event.time}`,
+      `${event.day}/${event.month}/${event.year}${event.time === "Almoço" ? ` · ${event.time}` : `, às ${event.time}`}`,
       event.venue,
     ].join(" — "),
     path: `/agenda/${event.id}`,
@@ -106,7 +107,7 @@ export default async function EventPage({ params }: EventPageProps) {
                 </p>
                 <p className="mt-2 flex items-center gap-2 text-sm font-semibold text-brand-800">
                   <Clock3 className="h-4 w-4 text-gold-700" aria-hidden />
-                  {event.weekday}, às {event.time}
+                  {event.weekday}{event.time === "Almoço" ? ` · ${event.time}` : `, às ${event.time}`}
                 </p>
               </aside>
 
@@ -201,6 +202,15 @@ export default async function EventPage({ params }: EventPageProps) {
                     ) : null}
                   </div>
                 ) : null}
+                {event.contactPhone ? (
+                  <a
+                    href={`tel:+55${event.contactPhone.replace(/\D/g, "")}`}
+                    className="btn btn-secondary mt-5"
+                  >
+                    <Phone className="h-4 w-4" aria-hidden />
+                    Confirmar presença · {event.contactPhone}
+                  </a>
+                ) : null}
               </article>
             </div>
 
@@ -224,13 +234,13 @@ export default async function EventPage({ params }: EventPageProps) {
                   />
                 </div>
                 <figcaption className="px-2 pb-1 pt-4 text-center text-xs font-semibold uppercase tracking-[0.1em] text-muted">
-                  Arte de divulgação e transporte do evento
+                  {event.imageCaption ?? "Material de divulgação do evento"}
                 </figcaption>
               </figure>
             ) : null}
 
             {event.id === "escola-profetas-piracicaba" ? (
-              <div className="mx-auto mt-8 grid max-w-5xl gap-6 lg:grid-cols-2">
+              <div className="mx-auto mt-8 max-w-5xl">
                 <article className="rounded-2xl border border-gold-500/25 bg-white p-6 shadow-[0_16px_50px_rgba(12,35,72,0.07)] sm:p-8">
                   <p className="cmebe-eyebrow">Caravana CMEBE</p>
                   <h2 className="mt-3 font-display text-2xl font-semibold text-ink">
@@ -263,26 +273,56 @@ export default async function EventPage({ params }: EventPageProps) {
                     Consultar a caravana
                   </a>
                 </article>
-
-                <article className="rounded-2xl border border-line bg-brand-50 p-6 sm:p-8">
-                  <h2 className="font-display text-2xl font-semibold text-ink">
-                    Assista ao convite
-                  </h2>
-                  <video
-                    controls
-                    playsInline
-                    preload="none"
-                    poster="/images/events/escola-profetas-poster.jpg"
-                    className="mx-auto mt-5 max-h-[36rem] w-full max-w-sm rounded-xl bg-black object-contain"
-                  >
-                    <source src="/videos/events/escola-profetas-piracicaba.mp4" type="video/mp4" />
-                    Seu navegador não oferece suporte à reprodução de vídeo.
-                  </video>
-                  <p className="mt-3 text-xs leading-5 text-muted">
-                    Convite em vídeo da Primeira Escola de Profetas em Piracicaba.
-                  </p>
-                </article>
               </div>
+            ) : null}
+
+            {event.video || event.gallery?.length ? (
+              <section className="mx-auto mt-12 max-w-5xl" aria-labelledby="event-media-title">
+                <div className="border-b border-line pb-4">
+                  <p className="cmebe-eyebrow">Registros do encontro</p>
+                  <h2 id="event-media-title" className="mt-3 font-display text-2xl font-semibold text-ink sm:text-3xl">
+                    CMEBE em Piracicaba/SP
+                  </h2>
+                  <p className="mt-2 text-sm leading-6 text-muted">
+                    Momentos de comunhão, participação e batismo registrados durante a programação.
+                  </p>
+                </div>
+
+                {event.video ? (
+                  <div className="mt-6 rounded-2xl border border-line bg-white p-4 shadow-[0_16px_50px_rgba(12,35,72,0.07)] sm:p-6">
+                    <h3 className="font-display text-xl font-semibold text-ink">{event.video.title}</h3>
+                    <video
+                      controls
+                      playsInline
+                      preload="none"
+                      poster={event.video.poster}
+                      className="mx-auto mt-4 max-h-[42rem] w-full max-w-md rounded-xl bg-black object-contain"
+                    >
+                      <source src={event.video.src} type="video/mp4" />
+                      Seu navegador não oferece suporte à reprodução de vídeo.
+                    </video>
+                  </div>
+                ) : null}
+
+                {event.gallery?.length ? (
+                  <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                    {event.gallery.map((photo) => (
+                      <figure
+                        key={photo.src}
+                        className="relative aspect-[4/3] overflow-hidden rounded-xl border border-line bg-brand-50 shadow-[0_8px_24px_rgba(12,35,72,0.08)]"
+                      >
+                        <Image
+                          src={photo.src}
+                          alt={photo.alt}
+                          fill
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                          className="object-cover"
+                        />
+                      </figure>
+                    ))}
+                  </div>
+                ) : null}
+              </section>
             ) : null}
           </section>
         </main>

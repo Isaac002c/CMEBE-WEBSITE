@@ -15,6 +15,17 @@ export type CmebeEvent = {
   address?: string;
   image?: string;
   imageAspect?: "square" | "landscape";
+  imageCaption?: string;
+  video?: {
+    src: string;
+    poster: string;
+    title: string;
+  };
+  gallery?: Array<{
+    src: string;
+    alt: string;
+  }>;
+  contactPhone?: string;
   note?: string;
   featured?: boolean;
   endsAt?: string;
@@ -105,21 +116,66 @@ export const officialEvents: CmebeEvent[] = [
     address: "Rua Dona Elvira, 949 – Distrito de Ártemis – Piracicaba/SP",
     image: "/images/events/piracicaba-caravana.jpg",
     imageAspect: "landscape",
-    note: "Informações e inscrições do encontro: Pr. Gerson Martins · (21) 96441-8167.",
-    featured: true,
+    imageCaption: "Informações da caravana para Piracicaba",
+    video: {
+      src: "/videos/events/piracicaba-novembro-2026.mp4",
+      poster: "/images/events/piracicaba-2026/video-poster.jpg",
+      title: "Vídeo do encontro da CMEBE em Piracicaba",
+    },
+    gallery: [
+      {
+        src: "/images/events/piracicaba-2026/lideres-cmebe.jpg",
+        alt: "Lideranças da CMEBE reunidas em Piracicaba",
+      },
+      {
+        src: "/images/events/piracicaba-2026/equipe-de-cozinha.jpg",
+        alt: "Equipe que colaborou no preparo da refeição do encontro",
+      },
+      {
+        src: "/images/events/piracicaba-2026/participantes-reunidos.jpg",
+        alt: "Participantes reunidos durante a programação em Piracicaba",
+      },
+      {
+        src: "/images/events/piracicaba-2026/momento-de-batismo.jpg",
+        alt: "Momento de batismo durante a reunião da igreja anfitriã",
+      },
+      {
+        src: "/images/events/piracicaba-2026/liderancas-cmebe.jpg",
+        alt: "Ministros e lideranças da CMEBE reunidos",
+      },
+      {
+        src: "/images/events/piracicaba-2026/ministros-reunidos.jpg",
+        alt: "Ministros reunidos durante o encontro em Piracicaba",
+      },
+      {
+        src: "/images/events/piracicaba-2026/confraternizacao.jpg",
+        alt: "Associados reunidos em momento de confraternização",
+      },
+    ],
+    note: "Encontro realizado em 21/11/2026. Confira os registros em fotos e vídeo abaixo.",
   },
   {
     id: "confraternizacao",
-    isoDate: "2026-12-16T09:00:00-03:00",
+    isoDate: "2026-12-16",
     day: "16",
     month: "DEZ",
     year: "2026",
     weekday: "Quarta-feira",
-    time: "9h",
-    title: "Café de Confraternização de Fim de Ano CMEBE",
+    time: "Almoço",
+    title: "Confraternização de Fim de Ano CMEBE",
+    details: [
+      "Almoço de confraternização dos associados CMEBE",
+      "Presidente: Pr. José Carlos Domingos",
+    ],
     host: "Pr. Gerson Martins",
     venue: "Espaço Martins Festas e Eventos",
-    address: "Estrada Boa Esperança, nº 13 – Santa Cruz – RJ",
+    address: "Estrada Boa Esperança, 13 – Santa Cruz – RJ · próximo ao Saquacu",
+    image: "/images/events/confraternizacao-cmebe-16-dezembro-2026.jpg",
+    imageAspect: "square",
+    imageCaption: "Convite da confraternização de fim de ano",
+    contactPhone: "(21) 96441-8167",
+    note: "Vagas limitadas: confirme sua presença e consulte o valor da colaboração para o churrasco.",
+    featured: true,
   },
 ];
 
